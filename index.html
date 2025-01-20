@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Barq Printings Studio | Luxury Photography & Visual Storytelling</title>
+    <meta name="description" content="Experience premium photography services that transform moments into timeless art. Specializing in luxury weddings, portraits, and editorial photography.">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- External Resources -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D68227', // Vibrant orange
+                        secondary: '#1E2530', // Deep navy blue
+                        accent: '#E63946', // Bold red
+                        neutral: '#F8FAFC', // Soft light gray
+                        dark: '#121826', // Deep dark
+                        light: '#FFFFFF', // Pure white
+                    },
+                    fontFamily: {
+                        outfit: ['Outfit', 'sans-serif'],
+                        jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #D68227, #E63946);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F3F4F6;
+            /* Light background */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D68227;
+            /* Navy blue */
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1E2530;
+            /* Gold/orange */
+        }
+
+        /* Smooth transitions */
+        .transition-custom {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+
+<body class="bg-white" x-data="{ isNavOpen: false, navScrolled: false }" @scroll.window="navScrolled = window.pageYOffset > 20">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" :class="{ 'bg-white/95 backdrop-blur-lg shadow-sm': navScrolled || isNavOpen, 
+                   'bg-transparent': !navScrolled && !isNavOpen }">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-24">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <h1 class="text-2xl font-outfit font-bold tracking-tight" :class="{ 'text-primary': navScrolled || isNavOpen, 
+                                 'text-white': !navScrolled && !isNavOpen }">
+                        Barq Printings<span class="text-secondary">.</span>
+                    </h1>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-12">
+                    <a href="#home" class="text-sm font-medium tracking-wide transition-colors duration-300" :class="{ 'text-primary hover:text-secondary': navScrolled || isNavOpen, 
+                                'text-white/90 hover:text-white': !navScrolled && !isNavOpen }">
+                        Home
+                    </a>
+                    <a href="#services" class="text-sm font-medium tracking-wide transition-colors duration-300" :class="{ 'text-primary hover:text-secondary': navScrolled || isNavOpen, 
+                                'text-white/90 hover:text-white': !navScrolled && !isNavOpen }">
+                        Services
+                    </a>
+                    <a href="#portfolio" class="text-sm font-medium tracking-wide transition-colors duration-300" :class="{ 'text-primary hover:text-secondary': navScrolled || isNavOpen, 
+                                'text-white/90 hover:text-white': !navScrolled && !isNavOpen }">
+                        Portfolio
+                    </a>
+                    <a href="#contact" class="text-sm font-medium tracking-wide transition-colors duration-300" :class="{ 'text-primary hover:text-secondary': navScrolled || isNavOpen, 
+                                'text-white/90 hover:text-white': !navScrolled && !isNavOpen }">
+                        Contact
+                    </a>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <button class="bg-secondary text-white px-8 py-3 rounded-full hover:bg-secondary/90 
+                                 transition-all duration-300 transform hover:scale-105 font-medium text-sm tracking-wide">
+                        Book a Session
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button @click="isNavOpen = !isNavOpen" class="primary focus:outline-none" :class="{ 'text-primary': navScrolled || isNavOpen }">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="md:hidden" x-show="isNavOpen" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-2">
+            <div class="px-4 pt-2 pb-6 bg-white/95 backdrop-blur-lg shadow-lg space-y-4">
+                <a href="#home" @click="isNavOpen = false" class="block py-3 text-primary hover:text-secondary transition-colors">
+                    Home
+                </a>
+                <a href="#services" @click="isNavOpen = false" class="block py-3 text-primary hover:text-secondary transition-colors">
+                    Services
+                </a>
+                <a href="#portfolio" @click="isNavOpen = false" class="block py-3 text-primary hover:text-secondary transition-colors">
+                    Portfolio
+                </a>
+                <a href="#contact" @click="isNavOpen = false" class="block py-3 text-primary hover:text-secondary transition-colors">
+                    Contact
+                </a>
+                <button class="w-full mt-4 bg-secondary text-white px-6 py-3 rounded-full 
+                             hover:bg-secondary/90 transition-all duration-300">
+                    Book a Session
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative min-h-screen flex items-center bg-gradient-to-br from-primary via-light to-secondary py-20 overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-10 left-1/3 w-96 h-96 bg-gradient-to-br from-accent to-primary/50 rounded-full blur-3xl opacity-50"></div>
+            <div class="absolute bottom-10 right-1/4 w-72 h-72 bg-gradient-to-br from-primary to-accent/60 rounded-full blur-2xl opacity-40"></div>
+        </div>
+
+        <!-- Content Container -->
+        <div class="relative container mx-auto px-6 lg:px-12 text-center lg:text-left">
+            <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-light leading-tight mb-8">
+                    Capturing Life's <br>
+                    <span class="bg-gradient-to-r from-accent via-primary to-secondary text-transparent bg-clip-text">
+                        Extraordinary Moments
+                    </span>
+                </h1>
+
+                <p class="text-lg sm:text-xl text-neutral max-w-2xl mx-auto lg:mx-0 mt-6 mb-12 leading-relaxed">
+                    Where artistry meets emotion, creating timeless photographs that tell your unique story.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <button class="group bg-primary text-light hover:bg-primary/90 rounded-full px-8 py-4 transition-all duration-300 flex items-center justify-center shadow-lg">
+                        Start Your Journey
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </button>
+
+                    <button class="px-8 py-4 rounded-full text-base text-light border-2 border-light/30 
+                         hover:bg-light/10 transition-all duration-300">
+                        View Portfolio
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-light/70">
+            <div class="flex flex-col items-center animate-bounce">
+                <span class="text-sm mb-2">Scroll to explore</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-neutral relative">
+        <!-- Decorative Background -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-primary/20 to-transparent"></div>
+            <div class="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-secondary/20 to-transparent"></div>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-primary font-medium tracking-wider text-sm uppercase">Our Expertise</span>
+                <h2 class="font-outfit text-4xl md:text-5xl font-bold mt-4 mb-6 text-secondary">
+                    Crafting Visual Stories with Precision
+                </h2>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    From intimate weddings to corporate events, we bring artistic vision and technical excellence to every shoot.
+                </p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up" x-data="{ activeService: null }">
+                <!-- Service Card Template -->
+                <div class="group relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866" alt="Wedding Photography" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-secondary mb-3">Wedding Photography</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Capturing the magic and emotion of your special day with artistic precision.
+                        </p>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i> Pre-wedding consultation
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i> Full-day coverage
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i> Artistic editing
+                            </li>
+                        </ul>
+                        <button class="mt-6 w-full bg-primary text-light py-2 rounded-full hover:bg-primary/90 transition-all duration-300">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card #2 -->
+                <div class="group relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg" alt="Portrait Photography" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-secondary mb-3">Portrait Photography</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Professional portraits that highlight personality and uniqueness.
+                        </p>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i> Studio or outdoor shoots
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i> Professional lighting
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i> Digital delivery
+                            </li>
+                        </ul>
+                        <button class="mt-6 w-full bg-primary text-light py-2 rounded-full hover:bg-primary/90 transition-all duration-300">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Service Card #3 -->
+                <div class="group relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865" alt="Event Photography" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-secondary mb-3">Event Photography</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Comprehensive coverage for corporate and social events.
+                        </p>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i> Real-time delivery
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i> Corporate packages
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-2"></i> Advanced editing
+                            </li>
+                        </ul>
+                        <button class="mt-6 w-full bg-primary text-light py-2 rounded-full hover:bg-primary/90 transition-all duration-300">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-24 bg-light relative">
+        <!-- Decorative Background -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-primary/10 to-transparent"></div>
+            <div class="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-secondary/10 to-transparent"></div>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-primary font-medium tracking-wider text-sm uppercase">Our Work</span>
+                <h2 class="font-outfit text-4xl md:text-5xl font-bold mt-4 mb-6 text-secondary">
+                    Moments Captured in Time
+                </h2>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    Browse through our carefully curated portfolio of exceptional photography across various genres.
+                </p>
+            </div>
+
+            <!-- Portfolio Filter -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12" x-data="{ activeFilter: 'all' }" data-aos="fade-up">
+                <button @click="activeFilter = 'all'" :class="activeFilter === 'all' ? 'bg-secondary text-light' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'" class="px-6 py-2 rounded-full transition duration-300">
+                    All Work
+                </button>
+                <button @click="activeFilter = 'weddings'" :class="activeFilter === 'weddings' ? 'bg-secondary text-light' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'" class="px-6 py-2 rounded-full transition duration-300">
+                    Weddings
+                </button>
+                <button @click="activeFilter = 'portraits'" :class="activeFilter === 'portraits' ? 'bg-secondary text-light' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'" class="px-6 py-2 rounded-full transition duration-300">
+                    Portraits
+                </button>
+                <button @click="activeFilter = 'events'" :class="activeFilter === 'events' ? 'bg-secondary text-light' : 'bg-gray-200 text-gray-800 hover:bg-gray-300'" class="px-6 py-2 rounded-full transition duration-300">
+                    Events
+                </button>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" x-data="{
+            activeFilter: 'all',
+            images: [
+                { id: 1, category: 'weddings', src: 'https://images.unsplash.com/photo-1519741497674-611481863552?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800', title: 'Coastal Wedding', description: 'Intimate beach ceremony at sunset.' },
+                { id: 2, category: 'portraits', src: 'https://images.unsplash.com/photo-1500336624523-d727130c3328?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800', title: 'Urban Portrait', description: 'Contemporary urban photography.' },
+                { id: 3, category: 'events', src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800', title: 'Corporate Event', description: 'Annual tech conference coverage.' },
+                { id: 4, category: 'weddings', src: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800', title: 'Garden Wedding', description: 'A romantic garden setting for a beautiful day.' },
+                { id: 5, category: 'portraits', src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800', title: 'Studio Portrait', description: 'Classic portrait captured in the studio.' },
+                { id: 6, category: 'events', src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800', title: 'Charity Event', description: 'A meaningful fundraiser in action.' }
+            ]
+        }" data-aos="fade-up">
+                <template x-for="image in images" :key="image.id">
+                    <div x-show="activeFilter === 'all' || activeFilter === image.category" class="group relative overflow-hidden rounded-lg shadow-lg">
+                        <!-- Image -->
+                        <img :src="image.src" :alt="image.title" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105">
+                        <!-- Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300">
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-6 group-hover:translate-y-0 transition duration-300">
+                                <h4 class="text-lg font-semibold mb-2" x-text="image.title"></h4>
+                                <p class="text-sm opacity-90" x-text="image.description"></p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- View More Button -->
+            <div class="text-center mt-16">
+                <button class="bg-primary text-light px-8 py-3 rounded-full hover:bg-primary/90 transition-all duration-300 transform hover:scale-105">
+                    View Full Gallery <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 bg-neutral relative overflow-hidden">
+        <!-- Decorative Background -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-primary/10 to-transparent"></div>
+            <div class="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-secondary/10 to-transparent"></div>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-primary font-medium tracking-wider text-sm uppercase">Testimonials</span>
+                <h2 class="font-outfit text-4xl md:text-5xl font-bold mt-4 mb-6 text-secondary">
+                    What Our Clients Say
+                </h2>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    Hear from those who trusted us to capture their unforgettable moments.
+                </p>
+            </div>
+
+            <!-- Testimonials Carousel -->
+            <div class="max-w-5xl mx-auto" x-data="{ currentSlide: 0, testimonials: [
+            { name: 'Sarah & James Anderson', role: 'Wedding Clients', image: 'https://images.unsplash.com/photo-1610216705422-caa3fcb6d158', content: 'Working with this team was an absolute dream. They captured our wedding day perfectly, catching all those special moments we might have missed. The photos are beyond beautiful!', rating: 5 },
+            { name: 'Emma Carter', role: 'Corporate Event Organizer', image: 'https://images.unsplash.com/photo-1595152772835-219674b2a8a1', content: 'I hired them for our annual conference, and the results were amazing. They managed to capture the energy and spirit of the event perfectly. Highly recommended!', rating: 5 },
+            { name: 'Lucas & Mia Brown', role: 'Portrait Clients', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb', content: 'The portraits they took of our family are absolutely stunning. The team made us feel comfortable, and the final results exceeded all expectations.', rating: 5 },
+            { name: 'Michael Johnson', role: 'Charity Event Organizer', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d', content: 'Our fundraiser was beautifully documented, and every key moment was captured with such elegance. I’m beyond grateful for their professional and artistic approach.', rating: 5 }
+        ]}">
+                <!-- Carousel Wrapper -->
+                <div class="relative" data-aos="fade-up">
+                    <!-- Slides -->
+                    <div class="overflow-hidden">
+                        <div class="flex transition-transform duration-500 ease-out" :style="`transform: translateX(-${currentSlide * 100}%)`">
+                            <template x-for="testimonial in testimonials" :key="testimonial.name">
+                                <div class="w-full flex-shrink-0 px-4">
+                                    <div class="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+                                        <!-- Content -->
+                                        <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                                            <!-- Image -->
+                                            <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden flex-shrink-0">
+                                                <img :src="testimonial.image" :alt="testimonial.name" class="w-full h-full object-cover">
+                                            </div>
+
+                                            <!-- Text Content -->
+                                            <div>
+                                                <div class="flex text-secondary mb-4">
+                                                    <template x-for="star in testimonial.rating">
+                                                        <i class="fas fa-star"></i>
+                                                    </template>
+                                                </div>
+                                                <p class="text-gray-700 text-lg mb-6 italic" x-text="testimonial.content"></p>
+                                                <div>
+                                                    <h4 class="font-semibold text-primary text-xl" x-text="testimonial.name"></h4>
+                                                    <p class="text-gray-600" x-text="testimonial.role"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-center items-center gap-4 mt-8">
+                        <button @click="currentSlide = (currentSlide > 0) ? currentSlide - 1 : testimonials.length - 1" class="bg-gray-200 hover:bg-gray-300 text-gray-600 px-4 py-2 rounded-full">
+                            Previous
+                        </button>
+                        <button @click="currentSlide = (currentSlide < testimonials.length - 1) ? currentSlide + 1 : 0" class="bg-gray-200 hover:bg-gray-300 text-gray-600 px-4 py-2 rounded-full">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-24 bg-light relative overflow-hidden">
+        <!-- Decorative Background -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-primary/10 to-transparent"></div>
+            <div class="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-secondary/10 to-transparent"></div>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-primary font-medium tracking-wider text-sm uppercase">Pricing Plans</span>
+                <h2 class="font-outfit text-4xl md:text-5xl font-bold mt-4 mb-6 text-secondary">
+                    Investment in Memories
+                </h2>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    Choose the perfect package that suits your photography needs and budget.
+                </p>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <!-- Basic Package -->
+                <div class="relative bg-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1" data-aos="fade-up" data-aos-delay="0">
+                    <div class="p-8">
+                        <h3 class="font-outfit text-2xl font-bold text-primary mb-4">Essential</h3>
+                        <div class="flex items-baseline mb-6">
+                            <span class="text-4xl font-bold text-secondary">AED 599</span>
+                            <span class="text-gray-500 ml-2">/session</span>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">2-hour photo session</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">50 edited digital photos</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Online gallery</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Basic retouching</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-primary text-light py-3 rounded-full hover:bg-primary/90 transition-all duration-300">
+                            Choose Plan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Premium Package -->
+                <div class="relative bg-white rounded-2xl shadow-lg transform scale-105 z-10 border-2 border-secondary transition-all duration-300 hover:shadow-xl hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -top-4 right-4">
+                        <span class="bg-secondary text-light px-4 py-1 rounded-full text-sm">Most Popular</span>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="font-outfit text-2xl font-bold text-primary mb-4">Premium</h3>
+                        <div class="flex items-baseline mb-6">
+                            <span class="text-4xl font-bold text-secondary">AED 999</span>
+                            <span class="text-gray-500 ml-2">/session</span>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">4-hour photo session</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">100 edited digital photos</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Online gallery with downloads</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Advanced retouching</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Printed photo album</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-secondary text-light py-3 rounded-full hover:bg-secondary/90 transition-all duration-300">
+                            Choose Plan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Professional Package -->
+                <div class="relative bg-white rounded-2xl shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-8">
+                        <h3 class="font-outfit text-2xl font-bold text-primary mb-4">Professional</h3>
+                        <div class="flex items-baseline mb-6">
+                            <span class="text-4xl font-bold text-secondary">AED 1,499</span>
+                            <span class="text-gray-500 ml-2">/session</span>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Full-day coverage</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Unlimited photos</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Premium online gallery</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Professional retouching</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Luxury photo album</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-primary mr-3"></i>
+                                <span class="text-gray-600">Canvas wall art</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-primary text-light py-3 rounded-full hover:bg-primary/90 transition-all duration-300">
+                            Choose Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="mt-16 text-center" data-aos="fade-up">
+                <p class="text-gray-600">
+                    All packages include high-resolution digital files and a personal usage license.
+                    <a href="#contact" class="text-secondary hover:text-secondary/80 transition-colors">
+                        Contact us
+                    </a>
+                    for custom packages.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-neutral relative">
+        <!-- Decorative Background -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-primary/10 to-transparent"></div>
+            <div class="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-secondary/10 to-transparent"></div>
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12 relative">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-primary font-medium tracking-wider text-sm uppercase">Get in Touch</span>
+                <h2 class="font-outfit text-4xl md:text-5xl font-bold mt-4 mb-6 text-secondary">
+                    Let’s Create Something Beautiful
+                </h2>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    Ready to start your photography journey? We’d love to hear from you. Let’s bring your vision to life.
+                </p>
+            </div>
+
+            <!-- Contact Form and Info Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+                <!-- Contact Form -->
+                <div class="bg-white rounded-2xl shadow-lg p-8" data-aos="fade-right">
+                    <form x-data="{ formData: { name: '', email: '', service: '', message: '' }, isSubmitting: false }">
+                        <div class="space-y-6">
+                            <!-- Name Field -->
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Full Name</label>
+                                <input type="text" x-model="formData.name" placeholder="Your name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition">
+                            </div>
+
+                            <!-- Email Field -->
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Email Address</label>
+                                <input type="email" x-model="formData.email" placeholder="Your email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition">
+                            </div>
+
+                            <!-- Service Selection -->
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Service Interest</label>
+                                <select x-model="formData.service" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition">
+                                    <option value="">Select a service</option>
+                                    <option value="wedding">Wedding Photography</option>
+                                    <option value="portrait">Portrait Session</option>
+                                    <option value="event">Event Coverage</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <!-- Message Field -->
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Your Message</label>
+                                <textarea x-model="formData.message" rows="4" placeholder="Your message" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition"></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="w-full bg-primary text-light py-3 rounded-lg hover:bg-primary/90 transition-all duration-300 flex items-center justify-center space-x-2">
+                                <span>Send Message</span>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="lg:pl-12" data-aos="fade-left">
+                    <!-- Info Cards -->
+                    <div class="space-y-6">
+                        <!-- Location -->
+                        <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300">
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-3 rounded-full">
+                                    <i class="fas fa-map-marker-alt text-primary text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-outfit text-lg font-semibold text-secondary mb-1">Studio Location</h4>
+                                    <p class="text-gray-600">301 Street, Hor al anz<br>Dubai, UAE</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact -->
+                        <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300">
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-3 rounded-full">
+                                    <i class="fas fa-phone-alt text-primary text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-outfit text-lg font-semibold text-secondary mb-1">Contact Info</h4>
+                                    <p class="text-gray-600">Phone: +(971) 567013643<br>Email: barqphotosudio@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hours -->
+                        <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300">
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 p-3 rounded-full">
+                                    <i class="fas fa-clock text-primary text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="font-outfit text-lg font-semibold text-secondary mb-1">Business Hours</h4>
+                                    <p class="text-gray-600">
+                                        Mon - Fri: 9:00 AM - 6:00 PM<br>
+                                        Sat: 10:00 AM - 4:00 PM<br>
+                                        Sun: Closed
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Media -->
+                    <div class="mt-8">
+                        <h4 class="font-outfit text-lg font-semibold text-secondary mb-4">Follow Us</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-white p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+                                <i class="fab fa-instagram text-primary text-xl"></i>
+                            </a>
+                            <a href="#" class="bg-white p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+                                <i class="fab fa-facebook text-primary text-xl"></i>
+                            </a>
+                            <a href="#" class="bg-white p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+                                <i class="fab fa-twitter text-primary text-xl"></i>
+                            </a>
+                            <a href="#" class="bg-white p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+                                <i class="fab fa-linkedin text-primary text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Map -->
+                    <div class="mt-8 rounded-xl overflow-hidden shadow-lg">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3607.2727257793186!2d55.3339863!3d25.2931588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5d8f5826cf35%3A0x5e4f4f4b0b44b09!2sHor%20Al%20Anz%2C%20Dubai!5e0!3m2!1sen!2sae!4v1693935470215!5m2!1sen!2sae" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-light">
+        <!-- Main Footer -->
+        <div class="container mx-auto px-6 lg:px-12 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- Brand Info -->
+                <div>
+                    <h3 class="font-outfit text-2xl font-bold mb-6">Barq Printings<span class="text-primary">.</span></h3>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Capturing life's precious moments with artistry and precision. Creating timeless memories through the lens of creativity.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-primary transition-colors duration-300">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-primary transition-colors duration-300">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-primary transition-colors duration-300">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-primary transition-colors duration-300">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-outfit text-lg font-semibold mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#home" class="text-gray-300 hover:text-primary transition-colors duration-300">Home</a>
+                        </li>
+                        <li>
+                            <a href="#services" class="text-gray-300 hover:text-primary transition-colors duration-300">Services</a>
+                        </li>
+                        <li>
+                            <a href="#portfolio" class="text-gray-300 hover:text-primary transition-colors duration-300">Portfolio</a>
+                        </li>
+                        <li>
+                            <a href="#pricing" class="text-gray-300 hover:text-primary transition-colors duration-300">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="text-gray-300 hover:text-primary transition-colors duration-300">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="font-outfit text-lg font-semibold mb-6">Our Services</h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors duration-300">Wedding Photography</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors duration-300">Portrait Sessions</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors duration-300">Event Coverage</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors duration-300">Photo Restoration</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-primary transition-colors duration-300">Custom Albums</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-outfit text-lg font-semibold mb-6">Newsletter</h4>
+                    <p class="text-gray-300 mb-4">Subscribe to receive photography tips and exclusive offers.</p>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="Your email address" class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-600 text-light placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition">
+                        <button type="submit" class="w-full bg-primary text-light py-3 rounded-lg hover:bg-primary/90 transition-all duration-300">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="border-t border-gray-700 py-6">
+            <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+                <p x-data="{ year: new Date().getFullYear() }" class="text-gray-400 text-center md:text-left">
+                    © <span x-text="year"></span> Barq Printings. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="fixed bottom-8 right-8 bg-secondary text-white p-4 rounded-full shadow-lg opacity-0 
+               transition-all duration-300 hover:bg-secondary/90 focus:outline-none" x-data="{ scrolled: false }" @scroll.window="scrolled = window.pageYOffset > 600" :class="{ 'opacity-100 translate-y-0': scrolled, 'opacity-0 translate-y-10': !scrolled }" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 50
+        });
+    </script>
+
+</body>
+
+</html>
